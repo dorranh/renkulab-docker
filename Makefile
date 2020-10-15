@@ -62,7 +62,7 @@ pull:
 		docker pull $(DOCKER_PREFIX)$$ext:$(DOCKER_LABEL) ; \
 	done
 
-r: py3.7
+r: py
 	docker build docker/r \
 		--build-arg RENKU_PIP_SPEC=$(RENKU_PIP_SPEC) \
 		--build-arg RENKU_BASE=renku/renkulab-py3.7:$(GIT_MASTER_HEAD_SHA)$(RENKU_TAG) \
@@ -70,7 +70,7 @@ r: py3.7
 		-t $(DOCKER_PREFIX)-r:$(DOCKER_LABEL)$(RENKU_TAG)$(R_TAG) && \
 	docker tag $(DOCKER_PREFIX)-r:$(DOCKER_LABEL)$(RENKU_TAG)$(R_TAG) $(DOCKER_PREFIX)-r:$(GIT_MASTER_HEAD_SHA)$(RENKU_TAG)$(R_TAG)
 
-bioc: py3.7
+bioc: py
 	docker build docker/bioc \
 		--build-arg RENKU_PIP_SPEC=$(RENKU_PIP_SPEC) \
 		--build-arg RENKU_BASE=renku/renkulab-py3.7:$(GIT_MASTER_HEAD_SHA)$(RENKU_TAG) \
@@ -79,7 +79,7 @@ bioc: py3.7
 	docker tag $(DOCKER_PREFIX)-bioc:$(DOCKER_LABEL)$(RENKU_TAG)$(BIOC_TAG) $(DOCKER_PREFIX)-bioc:$(GIT_MASTER_HEAD_SHA)$(RENKU_TAG)$(BIOC_TAG)
 
 
-py3.7:
+py:
 	cd docker/$@ && \
 	docker build \
 		--build-arg RENKU_PIP_SPEC=${RENKU_PIP_SPEC} \
